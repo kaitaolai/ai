@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeepRouter Skills Marketplace | Kaitao Lai</title>
+<meta name="description" content="Case study: the first version of the DeepRouter Skills Marketplace, packaged AI skills that run through a multi-model routing gateway with entitlement checked on every run.">
+<link rel="stylesheet" href="../assets/css/style.css?v=6">
+</head>
+<body class="case">
+
+<div class="spotlight" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="../"><span class="dot"></span>Kaitao Lai</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  <nav id="menu">
+    <a class="active" href="../#work">Work</a>
+    <a href="../#experience">Experience</a>
+    <a href="../#skills">Skills</a>
+    <a href="../#research">Research</a>
+    <a href="../#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="case-hero">
+    <a class="back load" style="--i:0" href="../#work"><span>←</span> All work</a>
+    <p class="eyebrow load" style="--i:1">Case study · Jun 2026 – Jul 2026</p>
+    <h1 class="load" style="--i:2">DeepRouter Skills Marketplace</h1>
+    <p class="lede load" style="--i:3">A marketplace where people buy, download and run packaged AI skills through a gateway that routes each call across OpenAI, Anthropic, Gemini and open models. I led the four-person team that built the first version.</p>
+    <p class="links load" style="--i:4"><a class="primary" href="https://github.com/deeprouter-io/deeprouter">Version 1 code on GitHub</a><a href="https://youtu.be/9PlYZl8BpE0">Demo video</a><a href="https://deep-router.com/">deep-router.com</a></p>
+
+    <dl class="meta load" style="--i:5">
+      <div><dt>My role</dt><dd>Led the four-person skills team: specs, reviews, and the core of the backend</dd></div>
+      <div><dt>My work</dt><dd>71 pull requests (69 merged), 48 ticket specs, and 26 of the team's 33 other merged PRs reviewed and merged</dd></div>
+      <div><dt>Status</dt><dd>Version 1 shipped in July 2026. The marketplace was later rebuilt as version 2 by other engineers.</dd></div>
+      <div><dt>Stack</dt><dd>Go, TypeScript, React, PostgreSQL, Redis, Docker</dd></div>
+    </dl>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">01</span>The problem</h2>
+    <p>A skill is mostly a well-written prompt and some instructions. Sell it as a download that runs inside a coding agent such as Claude Code, and the prompt is no longer secret: anyone who buys it can read it. So what is the customer paying for, and how do you stop one purchase from becoming a thousand?</p>
+    <p>I led the second revision of the product design, which answered it this way. A skill ships as a package the user runs locally, but its work step calls DeepRouter's routing API with the user's own key. Every run is then authenticated, checked against the user's plan, and billed, and the server applies its own copy of the instruction template and its own model allowlist.</p>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">02</span>Publishing a skill, and running one</h2>
+    <figure class="diagram">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 340" role="img" aria-label="Publish path: an admin activates a version, and in one transaction the system validates it, guards the runtime dependency, scans for secrets, builds the zip with a checksum and switches the active version. Run path: the agent calls the runner, the routing API checks the key, quota and abuse limits, the skill resolver checks the plan entitlement, and the request goes to a model provider.">
+        <g class="grp"><text x="24" y="26" style="text-anchor:start">Publish: one database transaction</text><text x="24" y="196" style="text-anchor:start">Run: every call is checked</text></g>
+        <g class="edge">
+          <path d="M150 85 L180 85"/><path d="M300 85 L330 85"/><path d="M460 85 L490 85"/><path d="M610 85 L640 85"/><path d="M790 85 L820 85"/>
+          <path d="M150 260 L180 260"/><path d="M300 260 L330 260"/><path d="M500 260 L530 260"/><path d="M690 260 L720 260"/><path d="M850 260 L870 260"/>
+        </g>
+        <g class="box">
+          <rect x="20" y="60" width="130" height="50" rx="10"/><text x="85" y="79" class="b">Admin</text><text x="85" y="97">activates version</text>
+        </g>
+        <g class="box agent">
+          <rect x="180" y="60" width="120" height="50" rx="10"/><text x="240" y="79" class="b">Validate</text><text x="240" y="97">snapshot, text</text>
+          <rect x="330" y="60" width="130" height="50" rx="10"/><text x="395" y="79" class="b">Runtime guard</text><text x="395" y="97">must call the API</text>
+          <rect x="490" y="60" width="120" height="50" rx="10"/><text x="550" y="79" class="b">Secret scan</text><text x="550" y="97">no keys, no routing</text>
+        </g>
+        <g class="box key">
+          <rect x="640" y="60" width="150" height="50" rx="10"/><text x="715" y="79" class="b">Build package</text><text x="715" y="97">zip + SHA-256</text>
+        </g>
+        <g class="box">
+          <rect x="820" y="60" width="160" height="50" rx="10"/><text x="900" y="79" class="b">Switch active</text><text x="900" y="97">version, audit log</text>
+        </g>
+        <text class="note" x="500" y="140">a failed build blocks the activation; nothing half-published</text>
+
+        <g class="box">
+          <rect x="20" y="235" width="130" height="50" rx="10"/><text x="85" y="254" class="b">Coding agent</text><text x="85" y="272">reads SKILL.md</text>
+          <rect x="180" y="235" width="120" height="50" rx="10"/><text x="240" y="254" class="b">Runner</text><text x="240" y="272">user's own key</text>
+        </g>
+        <g class="box agent">
+          <rect x="330" y="235" width="170" height="50" rx="10"/><text x="415" y="254" class="b">Routing API</text><text x="415" y="272">key, quota, abuse limits</text>
+        </g>
+        <g class="box key">
+          <rect x="530" y="235" width="160" height="50" rx="10"/><text x="610" y="254" class="b">Skill resolver</text><text x="610" y="272">version live? plan OK?</text>
+        </g>
+        <g class="box">
+          <rect x="720" y="235" width="130" height="50" rx="10"/><text x="785" y="254" class="b">Server template</text><text x="785" y="272">model allowlist</text>
+          <rect x="870" y="235" width="110" height="50" rx="10"/><text x="925" y="254" class="b">Model</text><text x="925" y="272">provider</text>
+        </g>
+        <text class="note" x="500" y="318">checked before the prompt loads or anything is billed</text>
+      </svg>
+      </div>
+      <figcaption>Drawn for this page from the version 1 code and design documents.</figcaption>
+    </figure>
+    <p>The package a user downloads holds a <code>SKILL.md</code> that a coding agent recognises as a skill, a manifest with the skill and version IDs, the instruction template, a README, and a small runner that makes the call to the routing API.</p>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">03</span>Decisions and trade-offs</h2>
+    <div class="decisions">
+      <div class="decision reveal">
+        <h3>Build the package when a version goes live</h3>
+        <p>The zip is built inside the activation transaction and stored with its checksum, so what users download is exactly the version the API executes. My first attempt was reverted and re-landed in this form.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Check the plan on every run</h3>
+        <p>A download is not a permanent right. Each call re-checks that the skill is enabled, the pinned version is live, and the user's subscription or one-time purchase still covers it, before the prompt loads or anything is billed.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Abuse limits on a public API</h3>
+        <p>Per-key request limits, plus limits on how many IP addresses and clients one key may use in ten minutes, held in Redis. Revoked keys are re-checked against the database, not trusted from a cache.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Money paths that cannot double-charge</h3>
+        <p>One-time purchases use an idempotency key and a conditional balance update. Referral rewards were moved after the purchase commits, once a failing referral was found to roll back a valid purchase.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">04</span>Leading the team</h2>
+    <ul class="ticks">
+      <li>Wrote 48 ticket specs with acceptance criteria and test plans, and kept test-result records in the repository next to the code.</li>
+      <li>Reviewed and merged 26 of the 33 merged pull requests from the other three engineers.</li>
+      <li>Built most of the marketplace and admin APIs and screens, versioning and publishing, entitlement at download and at run time, tiered pricing and one-time purchase, discovery (trending, leaderboards, recommendations) and consent-based analytics.</li>
+    </ul>
+    <div class="stats case-stats">
+      <div class="stat"><span class="num" data-to="71">0</span><span class="lbl">pull requests authored</span></div>
+      <div class="stat"><span class="num" data-to="48">0</span><span class="lbl">ticket specs</span></div>
+      <div class="stat"><span class="num" data-to="26">0</span><span class="lbl">teammate PRs reviewed and merged</span></div>
+      <div class="stat"><span class="num" data-to="4">0</span><span class="lbl">engineers on the team</span></div>
+    </div>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">05</span>What happened next</h2>
+    <p>After the first version shipped, the marketplace was rebuilt as version 2 by other engineers, and the runner was dropped. Their reasoning exposed the weak point in our design: a coding agent only reads the skill's text, so a user can copy the instructions and run them anywhere, and per-run checks only bind the runs that go through the API. The design had said as much up front, that it holds only if calling the API is genuinely useful. If I did it again I would test that assumption with real users before building the enforcement around it.</p>
+  </section>
+
+  <nav class="case-next reveal">
+    <a href="../motorphen/"><span>←</span> MotorPhen</a>
+    <a href="../carekind/">CareKind AI <span>→</span></a>
+  </nav>
+
+</main>
+
+<footer class="foot">
+  <p>Kaitao Lai · Sydney · <a href="https://kaitaolai.github.io/">Academic site</a> · <a href="https://github.com/taowis">GitHub</a></p>
+</footer>
+
+<script src="../assets/js/main.js?v=6"></script>
+</body>
+</html>

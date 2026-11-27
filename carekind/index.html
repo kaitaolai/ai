@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareKind AI | Kaitao Lai</title>
+<meta name="description" content="Case study: CareKind AI, a documentation assistant for aged care where an AI draft cannot become a record until a qualified person confirms it.">
+<link rel="stylesheet" href="../assets/css/style.css?v=6">
+</head>
+<body class="case">
+
+<div class="spotlight" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="../"><span class="dot"></span>Kaitao Lai</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  <nav id="menu">
+    <a class="active" href="../#work">Work</a>
+    <a href="../#experience">Experience</a>
+    <a href="../#skills">Skills</a>
+    <a href="../#research">Research</a>
+    <a href="../#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="case-hero">
+    <a class="back load" style="--i:0" href="../#work"><span>←</span> All work</a>
+    <p class="eyebrow load" style="--i:1">Case study · Aug 2026 – Nov 2026</p>
+    <h1 class="load" style="--i:2">CareKind AI</h1>
+    <p class="lede load" style="--i:3">A documentation assistant for Australian aged care. A care worker describes what happened; the system drafts a structured note; nothing becomes a record until a qualified person confirms it.</p>
+    <p class="links load" style="--i:4"><a class="primary" href="https://carekindai.app/">carekindai.app</a><a href="https://youtu.be/Wnu3o-oVmF0">2-minute demo</a></p>
+
+    <dl class="meta load" style="--i:5">
+      <div><dt>My role</dt><dd>Owner of the shared contracts package, backend integration owner, team lead from November 2026</dd></div>
+      <div><dt>Team</dt><dd>Ten people across Australia, New Zealand and the US</dd></div>
+      <div><dt>My work</dt><dd>135 merged pull requests, the most on the team</dd></div>
+      <div><dt>Stack</dt><dd>Python, FastAPI, PostgreSQL, React Native, GitHub Actions</dd></div>
+    </dl>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">01</span>The problem</h2>
+    <p>Aged-care staff often write their notes at the end of a long shift, from memory. Details get lost, required fields get missed, and changes across shifts go unnoticed. In a complaint or an investigation, those notes are the evidence.</p>
+    <p>An AI can take a spoken or typed account and turn it into a structured note in seconds. The risk is the other half: an AI that files records, makes clinical calls, or quietly turns a guess into a fact. So the product was built around one rule. The AI only ever drafts. A person in the right role confirms.</p>
+    <figure class="shot">
+      <img src="../assets/img/carekind.jpg" alt="CareKind website section: the stop is the product's central safety control. Capture happens after care; the AI only ever drafts; a person in the right role confirms." loading="lazy">
+      <figcaption>From the public site, carekindai.app. Screenshot taken November 2026.</figcaption>
+    </figure>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">02</span>From a spoken note to a confirmed record</h2>
+    <figure class="diagram">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 330" role="img" aria-label="A capture goes to the API and a job queue; the worker runs six stages and stops at awaiting review; the reviewer edits and confirms; only the confirm gate holds the writer that creates a confirmed record.">
+        <g class="grp"><text x="500" y="22">Worker: six stages, ends at "awaiting review"</text></g>
+        <g class="edge">
+          <path d="M130 80 L160 80"/><path d="M270 80 L300 80"/>
+          <path d="M420 80 L440 80"/><path d="M540 80 L560 80"/><path d="M660 80 L680 80"/><path d="M780 80 L800 80"/>
+          <path d="M860 108 L860 150 L740 150 L740 175"/>
+          <path d="M680 205 L620 205"/><path d="M500 205 L440 205"/>
+          <path d="M370 235 L370 265"/>
+        </g>
+        <g class="box">
+          <rect x="10" y="55" width="120" height="50" rx="10"/><text x="70" y="74" class="b">Capture</text><text x="70" y="92">voice or text</text>
+          <rect x="160" y="55" width="110" height="50" rx="10"/><text x="215" y="74" class="b">API</text><text x="215" y="92">job queued</text>
+        </g>
+        <g class="box agent">
+          <rect x="300" y="55" width="120" height="50" rx="10"/><text x="360" y="74" class="b">1 Context</text><text x="360" y="92">care plan, history</text>
+          <rect x="440" y="55" width="100" height="50" rx="10"/><text x="490" y="74" class="b">2 Extract</text><text x="490" y="92">LLM</text>
+          <rect x="560" y="55" width="100" height="50" rx="10"/><text x="610" y="74" class="b">3 Validate</text><text x="610" y="92">schema</text>
+          <rect x="680" y="55" width="100" height="50" rx="10"/><text x="730" y="74" class="b">4 Rules</text><text x="730" y="92">deterministic</text>
+          <rect x="800" y="55" width="120" height="50" rx="10"/><text x="860" y="74" class="b">5 Draft, 6 Ground</text><text x="860" y="92">LLM, then trace</text>
+        </g>
+        <g class="box">
+          <rect x="680" y="175" width="130" height="60" rx="10"/><text x="745" y="198" class="b">Review</text><text x="745" y="217">edits are append-only</text>
+        </g>
+        <g class="box key">
+          <rect x="500" y="175" width="120" height="60" rx="10"/><text x="560" y="198" class="b">Confirm gate</text><text x="560" y="217">right role only</text>
+        </g>
+        <g class="box key">
+          <rect x="300" y="175" width="140" height="60" rx="10"/><text x="370" y="198" class="b">Confirmed record</text><text x="370" y="217">immutable</text>
+        </g>
+        <g class="box">
+          <rect x="300" y="265" width="140" height="44" rx="10"/><text x="370" y="287">Portal and audit read</text>
+        </g>
+        <text class="note" x="760" y="290">the worker is never given the writer;</text>
+        <text class="note" x="760" y="308">its job status has no "confirmed" state</text>
+      </svg>
+      </div>
+      <figcaption>Drawn for this page from the project's interface contracts.</figcaption>
+    </figure>
+    <p>The worker pipeline runs six stages and stops at "awaiting review". Rules come before drafting: a versioned rule registry decides what gets flagged, so the model may suggest but only rules may assert, and every flag carries its rule ID and version. The last stage traces each drafted sentence back to what the worker actually said and flags anything it cannot trace.</p>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">03</span>Making the unsafe path impossible</h2>
+    <p>"Only a confirmed draft becomes a record" is easy to promise and easy to break by accident. I designed the contracts so that breaking it does not compile into the system in the first place.</p>
+    <div class="decisions">
+      <div class="decision reveal">
+        <h3>A reader and a writer</h3>
+        <p>The record store is two ports. The writer has a single method, create a confirmed record, with no update and no delete. Interface tests check that only the confirm gate may hold it, and the database role can only select and insert.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>No "confirmed" job state</h3>
+        <p>The worker's job status stops at "awaiting review". There is no confirmed state to reach, so no pipeline bug can promote a draft on its own.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Ports for every vendor</h3>
+        <p>Transcription, retrieval, drafting, rules, storage, media and the care-system link are all ports in a shared contracts package. The backend never calls a vendor SDK directly, so any one of them can be swapped without touching a route.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Contracts down to status codes</h3>
+        <p>I specified the six core endpoints with every failure case. Confirming as the wrong role returns 403, a draft that fails grounding returns 409 unless the reviewer gives a reason, and a warning never turns into a block.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">04</span>Measuring it</h2>
+    <p>I wrote a 30-case golden set of synthetic care notes, ten held out, with inference traps such as a worker saying "maybe a UTI", which must never become a diagnosis. These are development numbers, not release evidence: the cases are still marked as candidates, not agreed by a clinician.</p>
+    <div class="stats case-stats">
+      <div class="stat"><span class="num" data-to="93">0</span><span class="lbl">% of runs produced a draft, up from 49%</span></div>
+      <div class="stat"><span class="num" data-to="7">0</span><span class="lbl">% of drafts failed grounding, down from 27%</span></div>
+      <div class="stat"><span class="num" data-to="8">0</span><span class="lbl">s p95 pipeline time, 20 live typed notes</span></div>
+      <div class="stat"><span class="num" data-to="30">0</span><span class="lbl">golden cases, 10 held out</span></div>
+    </div>
+    <ul class="ticks">
+      <li>The latency budget was set before anything was measured, and marked as un-benchmarked until it was. On 20 live typed notes the pipeline took 6.4 s at the median and 8.2 s at p95, at about 1.4 US cents per draft. Voice was not measured.</li>
+      <li>The serious-incident screen caught all 56 incident cases with no false alarms on 106 others, but it was tuned on the development rows, so I do not count that as proof.</li>
+      <li>CI runs the backend and frontend tests and the offline evaluation on every pull request.</li>
+    </ul>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">05</span>What it is and is not</h2>
+    <p>CareKind is a working product built and demonstrated by a ten-person team, using synthetic residents and notes only. It has not been clinically validated, it has no aged-care provider as a client yet, and the demo did not run in an Australian data region. The page says so because a safety product that overstates itself has already failed at its main job.</p>
+  </section>
+
+  <nav class="case-next reveal">
+    <a href="../deeprouter/"><span>←</span> DeepRouter</a>
+    <a href="../stockclaw/">StockClaw AI <span>→</span></a>
+  </nav>
+
+</main>
+
+<footer class="foot">
+  <p>Kaitao Lai · Sydney · <a href="https://kaitaolai.github.io/">Academic site</a> · <a href="https://github.com/taowis">GitHub</a></p>
+</footer>
+
+<script src="../assets/js/main.js?v=6"></script>
+</body>
+</html>
