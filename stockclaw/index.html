@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StockClaw AI | Kaitao Lai</title>
+<meta name="description" content="Case study: StockClaw AI, a multi-agent market intelligence platform with cited signals, hybrid retrieval and a native Android app.">
+<link rel="stylesheet" href="../assets/css/style.css?v=6">
+</head>
+<body class="case">
+
+<div class="spotlight" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="../"><span class="dot"></span>Kaitao Lai</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  <nav id="menu">
+    <a class="active" href="../#work">Work</a>
+    <a href="../#experience">Experience</a>
+    <a href="../#skills">Skills</a>
+    <a href="../#research">Research</a>
+    <a href="../#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="case-hero">
+    <a class="back load" style="--i:0" href="../#work"><span>←</span> All work</a>
+    <p class="eyebrow load" style="--i:1">Case study · Apr 2026 – present</p>
+    <h1 class="load" style="--i:2">StockClaw AI</h1>
+    <p class="lede load" style="--i:3">A market intelligence platform that reads filings, central-bank releases and financial news, and turns them into ranked, source-cited signals for each user's watchlist.</p>
+    <p class="links load" style="--i:4"><a href="https://stockclaw.co/">stockclaw.co</a><a class="primary" href="https://play.google.com/store/apps/details?id=co.stockclaw.app">Live on Google Play</a><a href="https://stockclaw.co/preview">Try it without signing up</a><a href="https://youtu.be/9xt7j5bKW4A">2-minute demo</a><a href="https://docs.stockclaw.co/">User guide</a></p>
+
+    <dl class="meta load" style="--i:5">
+      <div><dt>My role</dt><dd>Project lead. Designed the architecture and wrote most of the code.</dd></div>
+      <div><dt>Team</dt><dd>Four engineers</dd></div>
+      <div><dt>Status</dt><dd>Live on the web, and on Google Play in 147 countries since 22 Nov 2026</dd></div>
+      <div><dt>Stack</dt><dd>Python, FastAPI, LangGraph, Celery, Redis, PostgreSQL with pgvector, React, React Native</dd></div>
+    </dl>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">01</span>The problem</h2>
+    <p>Anyone holding a handful of stocks faces the same flood: SEC filings, insider trades, Federal Reserve statements, agency releases and hundreds of news stories a day, most of which have nothing to do with what they own. Generic news apps rank by popularity, and a chatbot asked about a ticker will happily answer from whatever it half remembers.</p>
+    <p>The goal was a product that watches 30+ feeds on the user's behalf, keeps only what touches their watchlist, says how urgent it is, and can always show where a claim came from.</p>
+    <figure class="shot">
+      <img src="../assets/img/stockclaw.jpg" alt="StockClaw dashboard: watchlist, ETF strip, a Market Wire alert citing its source, and the signal feed with urgency and confidence." loading="lazy">
+      <figcaption>The public sample dashboard at stockclaw.co/preview: a fixed sample watchlist, real signals shown an hour after they were made. Screenshot taken November 2026.</figcaption>
+    </figure>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">02</span>How a signal is made</h2>
+    <p>Ingestion runs once for everyone. Each item is deduplicated by a content hash, so the same story republished on three sites is read once. Only then does the pipeline split per user: a watchlist filter decides what is relevant, and five specialist agents look at each item at the same time.</p>
+
+    <figure class="diagram">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 370" role="img" aria-label="Pipeline: sources feed shared ingestion, then a per-user watchlist filter, five agents in parallel, a synthesis step and delivery to web, app and Telegram.">
+        <g class="grp">
+          <text x="85" y="22">Sources (30+ feeds)</text>
+          <text x="595" y="22">Five agents in parallel</text>
+          <text x="930" y="62">Delivery</text>
+        </g>
+        <!-- edges -->
+        <g class="edge">
+          <path d="M160 62 C180 62 180 182 200 182"/><path d="M160 122 C180 122 180 182 200 182"/><path d="M160 182 L200 182"/>
+          <path d="M160 242 C180 242 180 182 200 182"/><path d="M160 302 C180 302 180 182 200 182"/>
+          <path d="M330 182 L365 182"/>
+          <path d="M485 182 C505 182 505 62 525 62"/><path d="M485 182 C505 182 505 122 525 122"/><path d="M485 182 L525 182"/>
+          <path d="M485 182 C505 182 505 242 525 242"/><path d="M485 182 C505 182 505 302 525 302"/>
+          <path d="M665 62 C685 62 685 182 705 182"/><path d="M665 122 C685 122 685 182 705 182"/><path d="M665 182 L705 182"/>
+          <path d="M665 242 C685 242 685 182 705 182"/><path d="M665 302 C685 302 685 182 705 182"/>
+          <path d="M835 182 C852 182 852 102 870 102"/><path d="M835 182 L870 182"/><path d="M835 182 C852 182 852 262 870 262"/>
+        </g>
+        <!-- sources -->
+        <g class="box">
+          <rect x="10" y="40" width="150" height="44" rx="9"/><text x="85" y="66">SEC filings</text>
+          <rect x="10" y="100" width="150" height="44" rx="9"/><text x="85" y="126">Central banks, agencies</text>
+          <rect x="10" y="160" width="150" height="44" rx="9"/><text x="85" y="186">News and newswires</text>
+          <rect x="10" y="220" width="150" height="44" rx="9"/><text x="85" y="246">Retail sentiment</text>
+          <rect x="10" y="280" width="150" height="44" rx="9"/><text x="85" y="306">Official macro data</text>
+        </g>
+        <g class="box key">
+          <rect x="200" y="132" width="130" height="100" rx="12"/>
+          <text x="265" y="170" class="b">Shared ingestion</text><text x="265" y="192">dedup by hash,</text><text x="265" y="210">once for all users</text>
+        </g>
+        <g class="box">
+          <rect x="365" y="147" width="120" height="70" rx="12"/>
+          <text x="425" y="178" class="b">Watchlist filter</text><text x="425" y="198">per user</text>
+        </g>
+        <g class="box agent">
+          <rect x="525" y="40" width="140" height="44" rx="9"/><text x="595" y="66">Filings and events</text>
+          <rect x="525" y="100" width="140" height="44" rx="9"/><text x="595" y="126">Macro</text>
+          <rect x="525" y="160" width="140" height="44" rx="9"/><text x="595" y="186">Sector</text>
+          <rect x="525" y="220" width="140" height="44" rx="9"/><text x="595" y="246">Sentiment</text>
+          <rect x="525" y="280" width="140" height="44" rx="9"/><text x="595" y="306">Policy</text>
+        </g>
+        <g class="box key">
+          <rect x="705" y="132" width="130" height="100" rx="12"/>
+          <text x="770" y="170" class="b">Synthesis</text><text x="770" y="192">quality gate,</text><text x="770" y="210">one schema</text>
+        </g>
+        <g class="box">
+          <rect x="870" y="80" width="120" height="44" rx="9"/><text x="930" y="106">Web, WebSocket</text>
+          <rect x="870" y="160" width="120" height="44" rx="9"/><text x="930" y="186">Android app</text>
+          <rect x="870" y="240" width="120" height="44" rx="9"/><text x="930" y="266">Telegram</text>
+        </g>
+        <g class="tiers">
+          <text x="770" y="262">FLASH · ALERT</text><text x="770" y="280">NOTE · FYI</text>
+        </g>
+        <text class="note" x="595" y="350">each agent: LangGraph, ReAct with tools, then a Reflexion critique</text>
+      </svg>
+      </div>
+      <figcaption>Drawn for this page from the project's architecture notes. A separate market-wide track, not shown, scores broad political and macro events for all users.</figcaption>
+    </figure>
+
+    <p>Each agent is a LangGraph state graph: it drafts a signal in a ReAct loop with domain tools, then a Reflexion step critiques and revises the draft, with an iteration cap so a loop cannot run away. The synthesis step merges the five views into one Pydantic schema with an impact score and one of four urgency tiers, and drops items that do not clear the quality gate.</p>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">03</span>Asking questions of your own signals</h2>
+    <p>The chat analyst answers questions over the signals a user has already received. Retrieval is hybrid because pure vector search is weak on exact names: a ticker or a phrase like "Section 232 tariff" is better found by keyword. The two result lists are fused, reranked, and then passed through a confidence gate.</p>
+
+    <figure class="diagram">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 230" role="img" aria-label="Retrieval: a question goes to dense and keyword search, results are fused with Reciprocal Rank Fusion, reranked by a cross-encoder, then a confidence gate either answers with cited sources or refuses.">
+        <g class="edge">
+          <path d="M130 115 C150 115 150 70 170 70"/><path d="M130 115 C150 115 150 160 170 160"/>
+          <path d="M330 70 C350 70 350 115 370 115"/><path d="M330 160 C350 160 350 115 370 115"/>
+          <path d="M500 115 L540 115"/><path d="M680 115 L720 115"/>
+          <path d="M840 115 C855 115 855 70 870 70"/><path d="M840 115 C855 115 855 160 870 160"/>
+        </g>
+        <g class="box"><rect x="10" y="90" width="120" height="50" rx="10"/><text x="70" y="120" class="b">Question</text></g>
+        <g class="box">
+          <rect x="170" y="45" width="160" height="50" rx="10"/><text x="250" y="66" class="b">Dense search</text><text x="250" y="84">pgvector</text>
+          <rect x="170" y="135" width="160" height="50" rx="10"/><text x="250" y="156" class="b">Keyword search</text><text x="250" y="174">BM25 in Postgres</text>
+        </g>
+        <g class="box"><rect x="370" y="90" width="130" height="50" rx="10"/><text x="435" y="111" class="b">Fusion</text><text x="435" y="129">Reciprocal Rank</text></g>
+        <g class="box"><rect x="540" y="90" width="140" height="50" rx="10"/><text x="610" y="111" class="b">Rerank</text><text x="610" y="129">cross-encoder</text></g>
+        <g class="box key"><rect x="720" y="90" width="120" height="50" rx="10"/><text x="780" y="111" class="b">Confidence</text><text x="780" y="129">gate</text></g>
+        <g class="box agent"><rect x="870" y="45" width="120" height="50" rx="10"/><text x="930" y="66" class="b">Answer</text><text x="930" y="84">with source IDs</text></g>
+        <g class="box"><rect x="870" y="135" width="120" height="50" rx="10"/><text x="930" y="156" class="b">Refuse</text><text x="930" y="174">say it is unsure</text></g>
+        <text class="note" x="500" y="218">below the threshold, the default is to refuse, not to answer from unrelated context</text>
+      </svg>
+      </div>
+      <figcaption>Drawn for this page from the project's architecture notes.</figcaption>
+    </figure>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">04</span>Decisions and trade-offs</h2>
+    <p>Each of these has its own architecture decision record, with the alternatives that were considered.</p>
+    <div class="decisions">
+      <div class="decision reveal">
+        <h3>Agents in parallel, not in a chain</h3>
+        <p>Run one after another, five agents add up their latencies. Run together with <code>asyncio.gather</code>, the wait is set by the slowest one. The cost is a more complex orchestrator, which is worth it for a product where a late alert is a useless alert.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Shared ingestion, per-user fan-out</h3>
+        <p>Feeds are crawled and deduplicated once, and only the per-user step costs model calls. Without that split, LLM spend would grow with every new user reading the same stories.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Hybrid retrieval with a refusal floor</h3>
+        <p>Dense search finds meaning, keyword search finds exact tickers and names, and Reciprocal Rank Fusion combines them without tuning weights. The confidence gate makes "I don't have a source for that" a normal answer.</p>
+      </div>
+      <div class="decision reveal">
+        <h3>Strict schemas at every boundary</h3>
+        <p>Crawler output, agent output and delivered signals are all Pydantic v2 models, so bad data is stopped where it enters instead of three steps later. Per-user Row Level Security in Postgres keeps one user's watchlist and signals out of another's queries.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">05</span>Cost and compliance</h2>
+    <ul class="ticks">
+      <li>Model spend came down through a cross-user analysis cache, prompts arranged to hit the provider's prompt cache, and off-peak batching. Each change was measured against a recorded noise baseline, so a saving had to be larger than the run-to-run wobble before it counted.</li>
+      <li>Acceptance criteria were written down before each evaluation run. Some cheaper options failed them and were dropped even though they saved money, for example skipping the Reflexion step on low-impact drafts.</li>
+      <li>I audited the licences of 33 news sources and switched off the ones that do not allow commercial use.</li>
+      <li>The product reports events, not advice. A guard blocks buy and sell wording in all five interface languages.</li>
+    </ul>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">06</span>Getting onto Google Play</h2>
+    <p>The first Android build was a Trusted Web Activity wrapping the web app. It passed closed testing in October 2026, but Google asked for more testing before production. Rather than keep patching a wrapper, we rebuilt the client as a native React Native app with Expo, with Google and GitHub sign-in. After a second closed test starting 13 November, Google granted production access, and the app went live in 147 countries on 22 November 2026.</p>
+  </section>
+
+  <section class="case-sec reveal">
+    <h2><span class="sec-num">07</span>How it was built</h2>
+    <div class="stats case-stats">
+      <div class="stat"><span class="num" data-to="257">0</span><span class="lbl">merged pull requests</span></div>
+      <div class="stat"><span class="num" data-to="88">0</span><span class="lbl">architecture decision records</span></div>
+      <div class="stat"><span class="num" data-to="3000" data-plus="1">0</span><span class="lbl">automated tests (backend, web, mobile)</span></div>
+      <div class="stat"><span class="num" data-to="5">0</span><span class="lbl">interface languages</span></div>
+    </div>
+    <p>Choices with a real alternative get a decision record, schema changes go through Alembic migrations, and cost claims have an evaluation record behind them. The work is in a private repository; I am happy to walk through the code and the decision records in an interview.</p>
+  </section>
+
+  <nav class="case-next reveal">
+    <a href="../carekind/"><span>←</span> CareKind AI</a>
+    <a href="../motorphen/">MotorPhen <span>→</span></a>
+  </nav>
+
+</main>
+
+<footer class="foot">
+  <p>Kaitao Lai · Sydney · <a href="https://kaitaolai.github.io/">Academic site</a> · <a href="https://github.com/taowis">GitHub</a></p>
+</footer>
+
+<script src="../assets/js/main.js?v=6"></script>
+</body>
+</html>

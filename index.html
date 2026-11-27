@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaitao Lai | AI / ML engineer</title>
+<meta name="description" content="Kaitao Lai, AI / ML engineer in Sydney: multi-agent systems, retrieval with cited sources, and models tested against simple baselines.">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
+</head>
+<body>
+
+<div class="spotlight" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top"><span class="dot"></span>Kaitao Lai</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  <nav id="menu">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#research">Research</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow load" style="--i:0">AI / ML engineer · Sydney</p>
+      <h1 class="load" style="--i:1">Kaitao Lai</h1>
+      <p class="lede load" style="--i:2">I build LLM systems that show their sources: multi-agent pipelines, retrieval that refuses when the context is weak, and evaluation sets that decide what ships.</p>
+      <p class="sub load" style="--i:3">19 years of software and data engineering, machine learning since 2017 at CSIRO, and a Ph.D. in bioinformatics. I test a model against simple baselines before I trust it.</p>
+      <div class="hero-cta load" style="--i:4">
+        <a class="btn" href="#work">See the work</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/kaitaolai/">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/taowis">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-art load" style="--i:2" aria-hidden="true">
+      <canvas id="graph"></canvas>
+      <p class="art-label">Five agents in parallel, one synthesis step, one cited signal.</p>
+    </div>
+  </section>
+
+  <!-- Numbers -->
+  <section class="stats reveal">
+    <div class="stat"><span class="num" data-to="4">0</span><span class="lbl">live AI platforms</span></div>
+    <div class="stat"><span class="num" data-to="257">0</span><span class="lbl">merged PRs on StockClaw</span></div>
+    <div class="stat"><span class="num" data-to="3000" data-plus="1">0</span><span class="lbl">automated tests on StockClaw</span></div>
+    <div class="stat"><span class="num" data-to="147">0</span><span class="lbl">countries on Google Play</span></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="block">
+    <h2 class="sec-title reveal"><span class="sec-num">01</span>About</h2>
+    <div class="about">
+      <div class="about-text reveal">
+        <p>I started as a software engineer in 2007, moved into bioinformatics, and spent the next decade building data pipelines and machine learning models for genomics research at CSIRO, the University of Sydney and the ANZAC Research Institute. That work came with a Ph.D. from the University of Queensland and a habit I still keep: decide how a model will be judged before you train it.</p>
+        <p>Since 2026 I have been building LLM products end to end: multi-agent pipelines, retrieval that cites its sources, contracts that keep an AI draft from becoming a record on its own, and the evaluation sets and cost baselines that decide what ships.</p>
+        <p>Things I work with most:</p>
+        <ul class="about-list">
+          <li>Python and FastAPI</li><li>LangGraph and MCP</li>
+          <li>PostgreSQL and pgvector</li><li>PyTorch on CUDA</li>
+          <li>React and React Native</li><li>Docker and GitHub Actions</li>
+        </ul>
+      </div>
+      <div class="portrait reveal">
+        <div class="portrait-frame">
+          <img src="assets/img/kaitao.jpg" alt="Kaitao Lai" width="600" height="900">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured work -->
+  <section id="work" class="block">
+    <h2 class="sec-title reveal"><span class="sec-num">02</span>Work</h2>
+
+    <div class="features">
+      <a class="feature reveal" href="stockclaw/">
+        <div class="media"><img src="assets/img/stockclaw.jpg" alt="StockClaw signal feed: watchlist, market wire alert and source-cited signals" loading="lazy"></div>
+        <p class="kicker">Project lead · 2026 – present</p>
+        <h3>StockClaw AI</h3>
+        <p class="tagline">Market intelligence from five agents in parallel, with every claim cited.</p>
+        <p>Filings, central-bank releases and news turned into ranked signals for each user's watchlist. Web app and a native Android app, live on Google Play in 147 countries. I led a team of four and wrote most of the code.</p>
+        <p class="tech">LangGraph · FastAPI · Celery · PostgreSQL · pgvector · React Native</p>
+        <p class="more">Read the case study <span>→</span></p>
+      </a>
+
+      <a class="feature reveal" href="motorphen/">
+        <div class="media contain"><img src="assets/img/motorphen-walk.gif" alt="Animated stick figure of a stroke survivor walking: recorded pose in grey, model reconstruction in blue, flagged hips in red" loading="lazy"></div>
+        <p class="kicker">Sole developer · 2026 – present</p>
+        <h3>MotorPhen</h3>
+        <p class="tagline">A Transformer trained from scratch, then tested honestly.</p>
+        <p>A 10-million-parameter masked autoencoder rebuilt from a paper whose code was never released. It matched the published result on healthy adults, but in 50 stroke survivors a one-variable clinical rule beat it (AUROC 0.84 against 0.54 and 0.62).</p>
+        <p class="tech">PyTorch · CUDA · scikit-learn · statsmodels</p>
+        <p class="more">Read the case study <span>→</span></p>
+      </a>
+
+      <a class="feature reveal" href="deeprouter/">
+        <div class="media">
+          <svg viewBox="0 0 480 270" role="img" aria-label="A skill package with SKILL.md, manifest, template and runner calls the routing API, which checks the user's plan before calling a model.">
+            <rect width="480" height="270" fill="var(--accent-soft)"/>
+            <g class="edge"><path d="M190 135 L250 135"/><path d="M370 135 L400 135"/></g>
+            <g class="box">
+              <rect x="30" y="50" width="160" height="170" rx="12"/>
+              <text x="110" y="76" class="b">skill.zip</text>
+              <text x="110" y="108">SKILL.md</text><text x="110" y="132">manifest.json</text><text x="110" y="156">template</text><text x="110" y="180">runtime/runner</text>
+            </g>
+            <g class="box key"><rect x="250" y="95" width="120" height="80" rx="12"/><text x="310" y="124" class="b">Routing API</text><text x="310" y="146">plan checked</text><text x="310" y="162">every run</text></g>
+            <g class="box agent"><rect x="400" y="110" width="60" height="50" rx="10"/><text x="430" y="136" class="b">LLM</text></g>
+          </svg>
+        </div>
+        <p class="kicker">Tech lead · Jun – Jul 2026</p>
+        <h3>DeepRouter Skills Marketplace</h3>
+        <p class="tagline">Packaged AI skills on a multi-model routing gateway.</p>
+        <p>Led the four-person team that built the first version: 48 ticket specs, 71 of my own PRs, and most of the team's reviews. Built versioning, package builds on activation, and plan checks on every run.</p>
+        <p class="tech">Go · TypeScript · React · PostgreSQL · Redis</p>
+        <p class="more">Read the case study <span>→</span></p>
+      </a>
+
+      <a class="feature reveal" href="carekind/">
+        <div class="media"><img src="assets/img/carekind.jpg" alt="CareKind website: the stop is the product's central safety control" loading="lazy"></div>
+        <p class="kicker">Team lead, contracts owner · Aug – Nov 2026</p>
+        <h3>CareKind AI</h3>
+        <p class="tagline">Clinical notes for aged care, with a person in the loop.</p>
+        <p>The system drafts a structured note from a care worker's account; a qualified person must confirm it before it counts. I designed the contracts so that only the confirm gate can create a record, in a team of ten.</p>
+        <p class="tech">Python · FastAPI · PostgreSQL · React Native</p>
+        <p class="more">Read the case study <span>→</span></p>
+      </a>
+    </div>
+
+    <h3 class="sub-title reveal">More projects</h3>
+    <div class="cards">
+      <a class="card reveal" href="https://virtual-town.com/">
+        <p class="card-top"><span>Live</span><span class="arrow">↗</span></p>
+        <h4>AI Virtual Town</h4>
+        <p>Six LLM-driven characters who live, talk and remember on their own, after the Generative Agents paper. Memory compression, A* pathfinding, WebSocket sync, and LLM calls capped and paused when nobody is watching.</p>
+        <p class="tech">React · PixiJS · Node.js · WebSocket</p>
+      </a>
+      <a class="card reveal" href="https://github.com/taowis/ClauseKitAI">
+        <p class="card-top"><span>GitHub</span><span class="arrow">↗</span></p>
+        <h4>ClauseKitAI</h4>
+        <p>Tenancy contract summariser in English and Chinese, with risk-clause alerts and an optional retriever over the NSW Residential Tenancies Act.</p>
+        <p class="tech">Streamlit · GPT-4 · Claude · Ollama</p>
+      </a>
+      <a class="card reveal" href="https://github.com/taowis/PulseScribeAI">
+        <p class="card-top"><span>GitHub</span><span class="arrow">↗</span></p>
+        <h4>PulseScribeAI</h4>
+        <p>Prototype clinical scribe: audio or transcript in, SOAP notes and GP letters out.</p>
+        <p class="tech">Python · Streamlit · Whisper</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="block">
+    <h2 class="sec-title reveal"><span class="sec-num">03</span>Experience</h2>
+    <ol class="timeline">
+      <li class="reveal">
+        <p class="when">Jul 2018 – present</p>
+        <h3>Data (AI) Engineer (Bioinformatics Research Fellow) · ANZAC Research Institute, NSW Health</h3>
+        <p>Anthropic-ecosystem practice (MCP, prompt caching, streaming, structured output and eval-driven guardrails); a 10-million-parameter Transformer trained from scratch in PyTorch on a CUDA GPU server (MotorPhen); CareKind AI, as code owner for the backend and interface contracts in a team; Python pipelines for 500GB+ multi-omics data on NCI Gadi; the t-SNE Hypergate analysis for platelet subpopulations; and dashboards that explain results to clinicians.</p>
+      </li>
+      <li class="reveal">
+        <p class="when">Feb 2026 – Mar 2026</p>
+        <h3>Data (AI) Engineer · Hypercube Scientific, St Leonards NSW</h3>
+        <p>AI and data pipelines on Snowflake for pharmaceutical sales data from 500+ Chemist Warehouse outlets, with IQVIA and PharmX; a LangChain analytics system that forecasts medication demand (EWMA, Croston's method).</p>
+      </li>
+      <li class="reveal">
+        <p class="when">Mar 2024 – Mar 2025</p>
+        <h3>Senior Data (AI) Engineer / Bioinformatics Software Engineer · Transplant Genomics Group, Westmead Institute for Medical Research, USyd</h3>
+        <p>GraftMatch, a full-stack transplant gene mismatch analyser; the ML pipeline for a $2M MRFF kidney transplant genomics project (500+ donor-recipient pairs); HPC pipelines on 10TB+ data with compute time cut by 60%; AlphaFold structural modelling for CAR-T research.</p>
+      </li>
+      <li class="reveal">
+        <p class="when">Jun 2021 – Nov 2023</p>
+        <h3>Senior Bioinformatics Software Engineer / Research Fellow · Ancestry &amp; Health Genomics Laboratory, University of Sydney</h3>
+        <p>Python pipelines for 2TB+ of deep whole-genome data from tumour-blood pairs, and ML models of microbial diversity in prostate cancer cohorts, with version control, automated tests and CI.</p>
+      </li>
+      <li class="reveal">
+        <p class="when">Feb 2017 – May 2018</p>
+        <h3>Data (ML) Software Engineer / Postdoctoral Research Fellow · CSIRO Transformational Bioinformatics Group, North Ryde</h3>
+        <p>A CRISPR-Cas12a guide RNA activity predictor (Random Forests and ensembles, 86% accuracy), serverless applications on AWS Lambda, and the Elsevier chapter "Artificial Intelligence and Machine Learning in Bioinformatics" (first author, 2019).</p>
+      </li>
+      <li class="reveal">
+        <p class="when">May 2015 – Jan 2017</p>
+        <h3>Bioinformatics Software Engineer / Full-Stack Developer · Hawkesbury Institute for the Environment, Western Sydney University</h3>
+        <p>TaxaCloud, an elastic cloud platform for metagenomic amplicon analysis built on microservices and QIIME 2, and a full-stack web app (Node.js, Vue.js, Python) that lets non-IT staff run microbiome analysis.</p>
+      </li>
+      <li class="reveal">
+        <p class="when">2007 – 2014</p>
+        <h3>Software Engineer (Earlier Roles) · TERN (UQ); Bayer CropScience (Ghent); ACPFG (UQ); UQ ITS</h3>
+        <p>Scientific data management, NGS variant discovery (Bayer CropScience SGSautoSNP), enterprise application development (PeopleSoft, C# .NET, Oracle PL/SQL) and Java / SQL Server engineering.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="block">
+    <h2 class="sec-title reveal"><span class="sec-num">04</span>Skills</h2>
+    <div class="skills">
+      <div class="skill-group reveal">
+        <h3>LLMs and agents</h3>
+        <p class="chips"><span>LangGraph</span><span>LangChain</span><span>OpenAI Agents SDK</span><span>Claude Agent SDK</span><span>MCP</span><span>Tool calling</span><span>Structured output</span><span>SSE streaming</span><span>Prompt caching</span></p>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Retrieval and evaluation</h3>
+        <p class="chips"><span>pgvector</span><span>ChromaDB</span><span>Hybrid BM25</span><span>Reciprocal Rank Fusion</span><span>Cross-encoder rerank</span><span>Golden sets</span><span>RAGAS</span><span>Noise baselines</span><span>Bootstrap CIs</span></p>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Machine learning</h3>
+        <p class="chips"><span>PyTorch</span><span>CUDA</span><span>Apple MPS</span><span>Transformers</span><span>scikit-learn</span><span>XGBoost</span><span>TensorFlow</span><span>SHAP</span></p>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Backend and apps</h3>
+        <p class="chips"><span>Python</span><span>FastAPI</span><span>Celery</span><span>Redis</span><span>PostgreSQL</span><span>Go</span><span>TypeScript</span><span>React</span><span>React Native</span></p>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Infrastructure</h3>
+        <p class="chips"><span>Docker</span><span>GitHub Actions</span><span>AWS</span><span>Azure</span><span>Vercel</span><span>Snowflake</span><span>Nextflow</span><span>HPC (PBS)</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="block">
+    <h2 class="sec-title reveal"><span class="sec-num">05</span>Research</h2>
+    <div class="research reveal">
+      <p>Before industry I spent more than a decade in genomics research: 30 peer-reviewed papers, over 3,000 citations and an h-index of 23. I wrote the Elsevier reference chapter <a href="https://doi.org/10.1016/B978-0-12-809633-8.20325-7">Artificial intelligence and machine learning in bioinformatics</a> (first author, 2019) and gave a TEDxSydney 2017 talk on cloud computing for ALS research.</p>
+      <p>Papers, projects and the academic CV are on my <a href="https://kaitaolai.github.io/">academic site</a> and <a href="https://scholar.google.com/citations?user=ewQhhiMAAAAJ&hl=en">Google Scholar</a>.</p>
+    </div>
+    <div class="certs reveal">
+      <h3>Certifications</h3>
+      <ul>
+        <li><a href="https://verify.skilljar.com/c/z7ii4zsfxa3i">Building with the Claude API</a></li>
+        <li><a href="https://verify.skilljar.com/c/6hev3sp5tgia">Claude Code in Action</a></li>
+        <li><a href="https://verify.skilljar.com/c/vtujpnoineog">Introduction to Model Context Protocol</a></li>
+        <li><a href="https://verify.skilljar.com/c/45dwuhk69ho9">Introduction to Agent Skills</a></li>
+      </ul>
+      <p class="muted">Anthropic Education, 2026.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="block contact reveal">
+    <h2 class="sec-title"><span class="sec-num">06</span>Contact</h2>
+    <p class="contact-line">Open to AI and ML engineering roles in Sydney, hybrid or remote. The quickest way to reach me is a message on LinkedIn.</p>
+    <a class="btn big" href="https://www.linkedin.com/in/kaitaolai/">Message me on LinkedIn</a>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Kaitao Lai · Sydney · <a href="https://kaitaolai.github.io/">Academic site</a> · <a href="https://github.com/taowis">GitHub</a></p>
+</footer>
+
+<script src="assets/js/main.js?v=9"></script>
+</body>
+</html>
